@@ -7,6 +7,8 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://F1y1113.github.io",
+  base: "/HA-VLN-webpage",
   integrations: [tailwind(), icon(), mdx(), react()],
   markdown: {
     shikiConfig: {
