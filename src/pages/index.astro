@@ -1,0 +1,1006 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+
+import sceneFigure from "../assets/task_define_final/task_define_final-1.png";
+import simulatorFigure from "../assets/simulator_draft_v2/simulator_draft_v2-1.png";
+import overviewFigure from "../assets/overview_example-1.png";
+import outsideVideo from "../assets/outside.mp4";
+import navVisualA from "../assets/nav_visual2.mp4";
+import navVisualB from "../assets/without_collision_1.mp4";
+import demo1 from "../assets/demo_1.mp4";
+import demo2 from "../assets/demo_2.mp4";
+import demo3 from "../assets/demo_3.mp4";
+import demo4 from "../assets/demo_4.mp4";
+import demo5 from "../assets/demo_5.mp4";
+import demo6 from "../assets/demo_6.mp4";
+
+const DOCS_URL = "https://josephjostar0.github.io/havln_docs/";
+const DATA_URL = `${DOCS_URL}quick_start/data/`;
+const PAPER_URL = "https://arxiv.org/pdf/2503.14229";
+const ARXIV_URL = "https://arxiv.org/abs/2503.14229";
+const REPO_URL = "https://github.com/F1y1113/HA-VLN";
+
+const frontmatter = {
+  title: "HA-VLN: Human-Aware Vision-and-Language Navigation",
+  description:
+    "HA-VLN provides human-aware navigation data and environments with dynamic multi-human interactions, socially grounded instructions, and public resources for embodied AI research.",
+  favicon: "favicon.svg",
+  thumbnail: "screenshot.png",
+};
+
+const features = [
+  {
+    label: "Dynamic Humans",
+    title: "Scenes with moving people, not just static obstacles",
+    body:
+      "Human activities, motion, partial observability, and local crowd behavior create navigation decisions that static VLN scenes usually miss.",
+    icon: "lucide:users",
+  },
+  {
+    label: "Social Grounding",
+    title: "Instructions tied to human activities and spatial cues",
+    body:
+      "Agents must interpret language that refers to people, activities, rooms, objects, and social context rather than only final goal locations.",
+    icon: "lucide:message-square-text",
+  },
+  {
+    label: "Data + Environment",
+    title: "A practical public resource for human-aware VLN",
+    body:
+      "HA-VLN releases human-populated navigation data, environment support, baseline references, and evaluation metrics for reproducible study.",
+    icon: "lucide:database",
+  },
+  {
+    label: "Safety Signals",
+    title: "Metrics that make social navigation visible",
+    body:
+      "Strict success, collision rate, trajectory collision rate, and navigation error help separate reaching goals from reaching them safely.",
+    icon: "lucide:shield-check",
+  },
+];
+
+const stats = [
+  ["16,844", "socially grounded instructions"],
+  ["172", "human activity categories"],
+  ["486", "detailed 3D motion models"],
+  ["58,320", "human motion frames"],
+  ["90", "annotated scans"],
+  ["910", "single-human motion instances"],
+];
+
+const gallery = [
+  { src: demo1, title: "Walking and turning", text: "Single-human motion with local path changes." },
+  { src: demo2, title: "Indoor activity", text: "Human motion aligned with room context." },
+  { src: demo3, title: "Object interaction", text: "Activity cues that can affect navigation choices." },
+  { src: demo4, title: "Crowd behavior", text: "Multiple people create local constraints." },
+  { src: demo5, title: "Everyday action", text: "Human activity as part of instruction grounding." },
+  { src: demo6, title: "Motion variation", text: "Diverse movements for human-aware scenes." },
+];
+
+const authors = [
+  "Yifei Dong",
+  "Fengyi Wu",
+  "Qi He",
+  "Heng Li",
+  "Minghan Li",
+  "Zebang Cheng",
+  "Yuxuan Zhou",
+  "Jingdong Sun",
+  "Qi Dai",
+  "Alexander G. Hauptmann",
+  "Bohan Xiong",
+  "Yetong Sha",
+  "Lingdong Kong",
+  "Zhi-Qi Cheng",
+];
+---
+
+<Layout frontmatter={frontmatter}>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="brand" href="#top" aria-label="HA-VLN home">
+      <span class="brand-mark">HA</span>
+      <span>HA-VLN</span>
+    </a>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#data">Data</a>
+      <a href="#environment">Environment</a>
+      <a href="#demos">Demos</a>
+      <a href="#resources">Resources</a>
+      <a href="#team">Team</a>
+    </div>
+    <a class="nav-cta" href={DOCS_URL} target="_blank" rel="noopener">
+      <Icon name="lucide:book-open" />
+      <span>Get Started</span>
+    </a>
+  </nav>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Human-aware navigation data and environments</p>
+        <h1>HA-VLN</h1>
+        <p class="hero-subtitle">
+          A public resource for vision-and-language navigation in dynamic scenes
+          with humans, activities, social constraints, and grounded instructions.
+        </p>
+        <div class="hero-actions" aria-label="Primary actions">
+          <a class="button primary" href={DOCS_URL} target="_blank" rel="noopener">
+            <Icon name="lucide:arrow-right" />
+            <span>Get Started</span>
+          </a>
+          <a class="button dark" href={PAPER_URL} target="_blank" rel="noopener">
+            <Icon name="lucide:file-text" />
+            <span>Read Paper</span>
+          </a>
+          <a class="button" href={REPO_URL} target="_blank" rel="noopener">
+            <Icon name="ri:github-line" />
+            <span>Repo</span>
+          </a>
+        </div>
+        <div class="hero-meta" aria-label="Project links">
+          <a href={ARXIV_URL} target="_blank" rel="noopener">arXiv:2503.14229</a>
+          <span>University of Washington + collaborators</span>
+        </div>
+      </div>
+
+      <div class="hero-media" aria-label="HA-VLN video preview">
+        <video autoplay muted loop playsinline preload="metadata" poster={sceneFigure.src}>
+          <source src={navVisualA} type="video/mp4" />
+        </video>
+        <div class="media-caption">
+          Dynamic humans are part of the navigation scene, not a background detail.
+        </div>
+      </div>
+    </section>
+
+    <section id="overview" class="section section-white">
+      <div class="section-heading">
+        <p class="eyebrow">Overview</p>
+        <h2>Human-aware VLN needs data where people matter.</h2>
+        <p>
+          Many VLN setups focus on static environments. HA-VLN shifts attention to
+          scenes where people move, interact, occlude views, and shape what a safe
+          navigation decision means.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        {
+          features.map((feature) => (
+            <article class="feature-card">
+              <div class="feature-icon"><Icon name={feature.icon} /></div>
+              <p class="card-label">{feature.label}</p>
+              <h3>{feature.title}</h3>
+              <p>{feature.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="data" class="section">
+      <div class="split">
+        <div class="split-copy">
+          <p class="eyebrow">Data and environments</p>
+          <h2>A human-populated resource for socially grounded navigation.</h2>
+          <p>
+            HA-VLN brings together navigation instructions, dynamic human motions,
+            activity cues, and Habitat-based environments so agents can be tested
+            beyond static shortest-path behavior.
+          </p>
+          <a class="inline-link" href={DATA_URL} target="_blank" rel="noopener">
+            <Icon name="lucide:download" />
+            <span>Dataset instructions in docs</span>
+          </a>
+        </div>
+        <div class="stats-grid" aria-label="HA-VLN data statistics">
+          {stats.map(([value, label]) => <div class="stat"><strong>{value}</strong><span>{label}</span></div>)}
+        </div>
+      </div>
+
+      <figure class="wide-figure">
+        <img src={sceneFigure.src} alt="HA-VLN navigation scenario with instruction cues, dynamic humans, and RGB-depth observations." />
+        <figcaption>
+          A navigation instruction can refer to human activities, spatial cues,
+          and decision points. The agent must progress while respecting nearby people.
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="environment" class="section section-white">
+      <div class="section-heading compact">
+        <p class="eyebrow">Environment support</p>
+        <h2>Habitat-based scenes with annotated human activity.</h2>
+        <p>
+          The simulator support is a practical companion to the dataset: it places
+          dynamic humans into photorealistic environments and exposes the state
+          needed for human-aware navigation research.
+        </p>
+      </div>
+
+      <div class="media-grid two">
+        <figure class="media-panel">
+          <img src={simulatorFigure.src} alt="HA-VLN simulator annotation and rendering pipeline." />
+          <figcaption>
+            Annotation and rendering pipeline for dynamic human activities in HA-VLN environments.
+          </figcaption>
+        </figure>
+        <figure class="media-panel">
+          <img src={overviewFigure.src} alt="Overview of annotated HA-VLN scenes." />
+          <figcaption>
+            Overview of annotated scenarios with human-populated navigation scenes.
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="note-row">
+        <div>
+          <strong>What to take away</strong>
+          <p>
+            HA-VLN is best understood as data and environment infrastructure for
+            studying human-aware navigation. The Habitat-based simulator and baseline
+            code are supporting resources, not the main novelty claim.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="demos" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Demo gallery</p>
+        <h2>Watch the human dynamics that shape the navigation task.</h2>
+        <p>
+          Short clips show the variety of human movements, interaction cues, and
+          navigation cases that HA-VLN makes available to researchers.
+        </p>
+      </div>
+
+      <div class="showcase">
+        <div class="showcase-video">
+          <video autoplay muted loop playsinline controls preload="metadata">
+            <source src={outsideVideo} type="video/mp4" />
+          </video>
+        </div>
+        <div class="showcase-copy">
+          <p class="card-label">Scene diversity</p>
+          <h3>Mixed indoor and outdoor contexts</h3>
+          <p>
+            Dynamic people and activity references make navigation decisions depend
+            on the evolving context around the agent.
+          </p>
+        </div>
+      </div>
+
+      <div class="gallery-grid">
+        {
+          gallery.map((item) => (
+            <article class="video-card">
+              <video autoplay muted loop playsinline controls preload="metadata">
+                <source src={item.src} type="video/mp4" />
+              </video>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section section-white">
+      <div class="section-heading compact">
+        <p class="eyebrow">Navigation visualization</p>
+        <h2>Socially aware behavior is visible in the trajectory.</h2>
+        <p>
+          These examples pair instructions with agent trajectories in scenes where
+          human motion changes what a reasonable route looks like.
+        </p>
+      </div>
+
+      <div class="media-grid two">
+        <figure class="media-panel">
+          <video autoplay muted loop playsinline controls preload="metadata">
+            <source src={navVisualA} type="video/mp4" />
+          </video>
+          <figcaption>
+            Lounge scenario with people talking, relaxing, and gathering near the agent path.
+          </figcaption>
+        </figure>
+        <figure class="media-panel">
+          <video autoplay muted loop playsinline controls preload="metadata">
+            <source src={navVisualB} type="video/mp4" />
+          </video>
+          <figcaption>
+            Indoor route with activity cues such as ironing, reading, and room transitions.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="resources" class="section resource-section">
+      <div class="section-heading compact">
+        <p class="eyebrow">Resources</p>
+        <h2>Everything you need to inspect, reproduce, and build on HA-VLN.</h2>
+      </div>
+
+      <div class="resource-grid">
+        <a class="resource-card" href={DOCS_URL} target="_blank" rel="noopener">
+          <Icon name="lucide:book-open" />
+          <span>Get Started</span>
+          <p>Installation, data setup, integration notes, APIs, and metrics.</p>
+        </a>
+        <a class="resource-card" href={PAPER_URL} target="_blank" rel="noopener">
+          <Icon name="lucide:file-text" />
+          <span>Read Paper</span>
+          <p>The arXiv paper describing HA-VLN and its public resources.</p>
+        </a>
+        <a class="resource-card" href={REPO_URL} target="_blank" rel="noopener">
+          <Icon name="ri:github-line" />
+          <span>Repo</span>
+          <p>Source code, simulator support, baseline material, and scripts.</p>
+        </a>
+        <a class="resource-card" href={DATA_URL} target="_blank" rel="noopener">
+          <Icon name="lucide:database" />
+          <span>Dataset</span>
+          <p>Download sources, access notes, and expected data layout.</p>
+        </a>
+      </div>
+    </section>
+
+    <section id="team" class="section section-white">
+      <div class="section-heading compact">
+        <p class="eyebrow">Team and citation</p>
+        <h2>Built by researchers across embodied AI and navigation.</h2>
+      </div>
+
+      <div class="team-layout">
+        <div class="author-list">
+          {authors.map((author) => <span>{author}</span>)}
+        </div>
+        <div class="citation">
+          <pre><code>{`@misc{dong2025havlnbenchmarkhumanawarenavigation,
+  title={HA-VLN: A Benchmark for Human-Aware Navigation in Discrete-Continuous Environments with Dynamic Multi-Human Interactions, Real-World Validation, and an Open Leaderboard},
+  author={Yifei Dong and Fengyi Wu and Qi He and Heng Li and Minghan Li and Zebang Cheng and Yuxuan Zhou and Jingdong Sun and Qi Dai and Alexander G Hauptmann and Bohan Xiong and Yetong Sha and Lingdong Kong and Zhi-Qi Cheng},
+  year={2025},
+  eprint={2503.14229},
+  archivePrefix={arXiv},
+  primaryClass={cs.AI},
+  url={https://arxiv.org/abs/2503.14229}
+}`}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <strong>HA-VLN</strong>
+      <span>Human-aware navigation data and environments.</span>
+    </div>
+    <div class="footer-links">
+      <a href={DOCS_URL} target="_blank" rel="noopener">Docs</a>
+      <a href={PAPER_URL} target="_blank" rel="noopener">Paper</a>
+      <a href={REPO_URL} target="_blank" rel="noopener">Repo</a>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    height: 66px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 36px;
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(16px);
+  }
+
+  .brand,
+  .nav-cta,
+  .button,
+  .inline-link,
+  .resource-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand {
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: var(--ink);
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .nav-links a,
+  .nav-cta {
+    padding: 10px 12px;
+    border-radius: 6px;
+  }
+
+  .nav-links a:hover,
+  .nav-cta:hover {
+    color: var(--text);
+    background: var(--surface-soft);
+  }
+
+  .nav-cta {
+    border: 1px solid var(--line);
+    font-weight: 700;
+    color: var(--text);
+    background: var(--surface);
+  }
+
+  .nav-cta :global(svg),
+  .button :global(svg),
+  .inline-link :global(svg),
+  .resource-card :global(svg),
+  .feature-icon :global(svg) {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+  }
+
+  .hero {
+    min-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 42px;
+    padding: 118px 6vw 72px;
+    background:
+      linear-gradient(120deg, rgba(37, 99, 235, 0.07), transparent 34%),
+      linear-gradient(300deg, rgba(15, 118, 110, 0.08), transparent 38%),
+      #fff;
+  }
+
+  .hero-copy {
+    max-width: 880px;
+    text-align: center;
+  }
+
+  .eyebrow,
+  .card-label {
+    margin-bottom: 14px;
+    color: var(--teal);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    letter-spacing: 0;
+    color: var(--text);
+  }
+
+  h1 {
+    font-size: clamp(64px, 9vw, 132px);
+    line-height: 0.92;
+    font-weight: 800;
+  }
+
+  h2 {
+    font-size: clamp(32px, 4.5vw, 58px);
+    line-height: 1.02;
+    font-weight: 800;
+  }
+
+  h3 {
+    font-size: 20px;
+    line-height: 1.25;
+    font-weight: 750;
+  }
+
+  .hero-subtitle {
+    margin-top: 26px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--muted);
+    font-size: clamp(20px, 2.2vw, 28px);
+    line-height: 1.38;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .button {
+    min-width: 156px;
+    min-height: 54px;
+    justify-content: center;
+    padding: 15px 20px;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    font-weight: 800;
+    transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+  }
+
+  .button:hover {
+    transform: translateY(-1px);
+    border-color: var(--text);
+  }
+
+  .button.primary {
+    color: #fff;
+    background: var(--blue);
+    border-color: var(--blue);
+  }
+
+  .button.dark {
+    color: #fff;
+    background: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 18px;
+    margin-top: 22px;
+    color: var(--subtle);
+    font-size: 14px;
+  }
+
+  .hero-meta a {
+    color: var(--blue);
+    font-weight: 700;
+  }
+
+  .hero-media,
+  .media-panel,
+  .wide-figure,
+  .showcase-video,
+  .video-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+  }
+
+  .hero-media {
+    width: min(100%, 1080px);
+  }
+
+  .hero-media video {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    background: #0f172a;
+  }
+
+  .media-caption,
+  figcaption,
+  .video-card > div {
+    padding: 16px 18px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .section {
+    padding: 96px 6vw;
+  }
+
+  .section-white {
+    background: #fff;
+  }
+
+  .section-heading {
+    max-width: 820px;
+    margin: 0 auto 42px;
+    text-align: center;
+  }
+
+  .section-heading.compact {
+    max-width: 760px;
+  }
+
+  .section-heading p:not(.eyebrow),
+  .split-copy p {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .feature-card {
+    min-height: 292px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .feature-icon {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 22px;
+    color: var(--blue);
+    background: rgba(37, 99, 235, 0.08);
+    border-radius: 6px;
+  }
+
+  .feature-card p:last-child,
+  .resource-card p,
+  .showcase-copy p,
+  .note-row p,
+  .video-card p {
+    margin-top: 12px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1.05fr);
+    gap: 42px;
+    align-items: center;
+    max-width: 1180px;
+    margin: 0 auto 42px;
+  }
+
+  .inline-link {
+    margin-top: 26px;
+    color: var(--blue);
+    font-weight: 800;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .stat {
+    min-height: 132px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+
+  .stat strong {
+    display: block;
+    color: var(--ink);
+    font-size: clamp(28px, 4vw, 46px);
+    line-height: 1;
+  }
+
+  .stat span {
+    display: block;
+    margin-top: 12px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  .wide-figure {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .wide-figure img {
+    width: 100%;
+    background: #fff;
+  }
+
+  .media-grid {
+    display: grid;
+    gap: 22px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .media-grid.two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .media-panel img,
+  .media-panel video {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: contain;
+    background: #f8fafc;
+  }
+
+  .media-panel video {
+    object-fit: cover;
+    background: #0f172a;
+  }
+
+  .note-row {
+    max-width: 1180px;
+    margin: 22px auto 0;
+    padding: 24px;
+    border-left: 4px solid var(--amber);
+    border-radius: 8px;
+    background: #fff7ed;
+    color: #7c2d12;
+  }
+
+  .note-row strong {
+    display: block;
+    color: #7c2d12;
+    font-size: 18px;
+  }
+
+  .showcase {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+    gap: 24px;
+    align-items: stretch;
+    max-width: 1180px;
+    margin: 0 auto 24px;
+  }
+
+  .showcase-video video {
+    width: 100%;
+    height: 100%;
+    min-height: 360px;
+    object-fit: cover;
+    background: #0f172a;
+  }
+
+  .showcase-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 34px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .video-card video {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    background: #0f172a;
+  }
+
+  .resource-section {
+    background: linear-gradient(180deg, #f8fafc 0%, #eef6f8 100%);
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .resource-card {
+    align-items: flex-start;
+    flex-direction: column;
+    min-height: 220px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    transition: transform 160ms ease, border-color 160ms ease;
+  }
+
+  .resource-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--line-strong);
+  }
+
+  .resource-card :global(svg) {
+    color: var(--teal);
+  }
+
+  .resource-card span {
+    font-size: 22px;
+    font-weight: 800;
+  }
+
+  .team-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
+    gap: 24px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .author-list,
+  .citation {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .author-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 10px;
+    padding: 24px;
+  }
+
+  .author-list span {
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--muted);
+    background: var(--surface-soft);
+    font-size: 14px;
+    font-weight: 650;
+  }
+
+  .citation {
+    overflow: auto;
+  }
+
+  .citation pre {
+    margin: 0;
+    padding: 24px;
+    color: #dbeafe;
+    background: #0f172a;
+    font-size: 13px;
+    line-height: 1.65;
+    white-space: pre-wrap;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 34px 6vw;
+    border-top: 1px solid var(--line);
+    background: #fff;
+    color: var(--muted);
+  }
+
+  .footer strong,
+  .footer span {
+    display: block;
+  }
+
+  .footer strong {
+    color: var(--text);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 18px;
+    font-weight: 750;
+  }
+
+  .footer-links a:hover {
+    color: var(--blue);
+  }
+
+  @media (max-width: 1080px) {
+    .site-nav {
+      padding: 0 20px;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .split,
+    .showcase,
+    .team-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      padding-top: 112px;
+    }
+
+    .feature-grid,
+    .resource-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .site-nav {
+      height: 60px;
+    }
+
+    .brand span:last-child {
+      display: none;
+    }
+
+    .nav-cta {
+      padding: 9px 10px;
+      font-size: 14px;
+    }
+
+    .hero,
+    .section {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .hero {
+      min-height: auto;
+      padding-bottom: 42px;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+    }
+
+    .button {
+      width: 100%;
+    }
+
+    .feature-grid,
+    .stats-grid,
+    .media-grid.two,
+    .gallery-grid,
+    .resource-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .showcase-video video {
+      min-height: 240px;
+    }
+
+    .footer {
+      flex-direction: column;
+    }
+  }
+</style>
