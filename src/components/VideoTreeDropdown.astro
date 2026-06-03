@@ -4,12 +4,9 @@ import categoryData from '../data/category.json';
 
 interface Props {
   className?: string;
-  dd: string;
-  mp4: string;
-  png: string;
 }
 
-const { className = "", png, mp4 } = Astro.props;
+const { className = "" } = Astro.props;
 ---
 
 <div class={`video-tree-dropdown ${className}`}>
@@ -69,14 +66,10 @@ const { className = "", png, mp4 } = Astro.props;
   </div>
 </div>
 
-<script define:vars={{ videoData, categoryData, mp4, png }}>
-    console.log('======mp4', mp4);
-     console.log('======png', png);
+<script is:inline define:vars={{ videoData, categoryData }}>
   document.addEventListener('DOMContentLoaded', function() {
     const folderSelect = document.getElementById('folder-select');
-    const subfolderContainer = document.getElementById('subfolder-container');
     const subfolderSelect = document.getElementById('subfolder-select');
-    const submitContainer = document.getElementById('submit-container');
     const submitBtn = document.getElementById('submit-btn');
     const videoDisplay = document.getElementById('video-display');
     const videoSectionTitle = document.getElementById('video-section-title');

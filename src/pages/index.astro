@@ -1,11 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { Icon } from "astro-icon/components";
+import VideoTreeDropdown from "../components/VideoTreeDropdown.astro";
 
 import sceneFigure from "../assets/task_define_final/task_define_final-1.png";
 import simulatorFigure from "../assets/simulator_draft_v2/simulator_draft_v2-1.png";
 import overviewFigure from "../assets/overview_example-1.png";
-import outsideVideo from "../assets/outside.mp4";
+import institutionFigure from "../assets/our_institutions.png";
+import heroVideo from "../assets/8194nk5LbLH_all_ids_video.mp4";
+import sceneDiversityVideo from "../assets/havln.mp4";
 import navVisualA from "../assets/nav_visual2.mp4";
 import navVisualB from "../assets/without_collision_1.mp4";
 import demo1 from "../assets/demo_1.mp4";
@@ -70,12 +73,12 @@ const stats = [
 ];
 
 const gallery = [
-  { src: demo1, title: "Walking and turning", text: "Single-human motion with local path changes." },
-  { src: demo2, title: "Indoor activity", text: "Human motion aligned with room context." },
-  { src: demo3, title: "Object interaction", text: "Activity cues that can affect navigation choices." },
-  { src: demo4, title: "Crowd behavior", text: "Multiple people create local constraints." },
-  { src: demo5, title: "Everyday action", text: "Human activity as part of instruction grounding." },
-  { src: demo6, title: "Motion variation", text: "Diverse movements for human-aware scenes." },
+  { src: demo1, title: "Stair climbing", text: "A person moves upward through a stair area, changing the navigable space around the agent." },
+  { src: demo2, title: "Indoor walking", text: "Human motion inside a room provides activity and route context for grounded instructions." },
+  { src: demo3, title: "Phone pacing", text: "A person walks through the hallway while using a phone, creating a moving social cue." },
+  { src: demo4, title: "Running and stopping", text: "Fast motion followed by a stop makes timing and clearance important for navigation." },
+  { src: demo5, title: "Outdoor crouching", text: "A backyard motion sequence shifts from crouching to walking in a weak outdoor scene." },
+  { src: demo6, title: "Indoor crouching", text: "The person bends down while moving indoors, varying height, posture, and visibility." },
 ];
 
 const authors = [
@@ -89,9 +92,6 @@ const authors = [
   "Jingdong Sun",
   "Qi Dai",
   "Alexander G. Hauptmann",
-  "Bohan Xiong",
-  "Yetong Sha",
-  "Lingdong Kong",
   "Zhi-Qi Cheng",
 ];
 ---
@@ -147,11 +147,95 @@ const authors = [
 
       <div class="hero-media" aria-label="HA-VLN video preview">
         <video autoplay muted loop playsinline preload="metadata" poster={sceneFigure.src}>
-          <source src={navVisualA} type="video/mp4" />
+          <source src={heroVideo} type="video/mp4" />
         </video>
         <div class="media-caption">
           Dynamic humans are part of the navigation scene, not a background detail.
         </div>
+      </div>
+    </section>
+
+    <section id="demos" class="section demo-hub">
+      <div class="section-heading">
+        <p class="eyebrow">Interactive demos</p>
+        <h2>Explore human-aware navigation examples up front.</h2>
+        <p>
+          Simulator clips, motion cases, and trajectory visualizations show how
+          humans shape the navigation task before the page moves into dataset details.
+        </p>
+      </div>
+
+      <div class="explorer-panel">
+        <VideoTreeDropdown />
+      </div>
+
+      <div class="section-heading demo-subheading">
+        <p class="eyebrow">Demo gallery</p>
+        <h2>Watch the human dynamics that shape the navigation task.</h2>
+        <p>
+          Short clips show the variety of human movements, interaction cues, and
+          navigation cases that HA-VLN makes available to researchers.
+        </p>
+      </div>
+
+      <div class="showcase">
+        <div class="showcase-video">
+          <video autoplay muted loop playsinline controls preload="metadata">
+            <source src={sceneDiversityVideo} type="video/mp4" />
+          </video>
+        </div>
+        <div class="showcase-copy">
+          <p class="card-label">Scene diversity</p>
+          <h3>Scene diversity across human-aware navigation cases</h3>
+          <p>
+            Dynamic people and activity references make navigation decisions depend
+            on the evolving context around the agent.
+          </p>
+        </div>
+      </div>
+
+      <div class="gallery-grid">
+        {
+          gallery.map((item) => (
+            <article class="video-card">
+              <video autoplay muted loop playsinline controls preload="metadata">
+                <source src={item.src} type="video/mp4" />
+              </video>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="section-heading demo-subheading compact">
+        <p class="eyebrow">Navigation visualization</p>
+        <h2>Socially aware behavior is visible in the trajectory.</h2>
+        <p>
+          These examples pair instructions with agent trajectories in scenes where
+          human motion changes what a reasonable route looks like.
+        </p>
+      </div>
+
+      <div class="media-grid two">
+        <figure class="media-panel">
+          <video autoplay muted loop playsinline controls preload="metadata">
+            <source src={navVisualA} type="video/mp4" />
+          </video>
+          <figcaption>
+            Lounge scenario with people talking, relaxing, and gathering near the agent path.
+          </figcaption>
+        </figure>
+        <figure class="media-panel">
+          <video autoplay muted loop playsinline controls preload="metadata">
+            <source src={navVisualB} type="video/mp4" />
+          </video>
+          <figcaption>
+            Indoor route with activity cues such as ironing, reading, and room transitions.
+          </figcaption>
+        </figure>
       </div>
     </section>
 
@@ -247,79 +331,6 @@ const authors = [
       </div>
     </section>
 
-    <section id="demos" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">Demo gallery</p>
-        <h2>Watch the human dynamics that shape the navigation task.</h2>
-        <p>
-          Short clips show the variety of human movements, interaction cues, and
-          navigation cases that HA-VLN makes available to researchers.
-        </p>
-      </div>
-
-      <div class="showcase">
-        <div class="showcase-video">
-          <video autoplay muted loop playsinline controls preload="metadata">
-            <source src={outsideVideo} type="video/mp4" />
-          </video>
-        </div>
-        <div class="showcase-copy">
-          <p class="card-label">Scene diversity</p>
-          <h3>Mixed indoor and outdoor contexts</h3>
-          <p>
-            Dynamic people and activity references make navigation decisions depend
-            on the evolving context around the agent.
-          </p>
-        </div>
-      </div>
-
-      <div class="gallery-grid">
-        {
-          gallery.map((item) => (
-            <article class="video-card">
-              <video autoplay muted loop playsinline controls preload="metadata">
-                <source src={item.src} type="video/mp4" />
-              </video>
-              <div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </section>
-
-    <section class="section section-white">
-      <div class="section-heading compact">
-        <p class="eyebrow">Navigation visualization</p>
-        <h2>Socially aware behavior is visible in the trajectory.</h2>
-        <p>
-          These examples pair instructions with agent trajectories in scenes where
-          human motion changes what a reasonable route looks like.
-        </p>
-      </div>
-
-      <div class="media-grid two">
-        <figure class="media-panel">
-          <video autoplay muted loop playsinline controls preload="metadata">
-            <source src={navVisualA} type="video/mp4" />
-          </video>
-          <figcaption>
-            Lounge scenario with people talking, relaxing, and gathering near the agent path.
-          </figcaption>
-        </figure>
-        <figure class="media-panel">
-          <video autoplay muted loop playsinline controls preload="metadata">
-            <source src={navVisualB} type="video/mp4" />
-          </video>
-          <figcaption>
-            Indoor route with activity cues such as ironing, reading, and room transitions.
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-
     <section id="resources" class="section resource-section">
       <div class="section-heading compact">
         <p class="eyebrow">Resources</p>
@@ -356,19 +367,23 @@ const authors = [
         <h2>Built by researchers across embodied AI and navigation.</h2>
       </div>
 
+      <div class="institution-panel" aria-label="Collaborating institutions">
+        <img src={institutionFigure.src} alt="HA-VLN collaborating institutions." />
+      </div>
+
       <div class="team-layout">
         <div class="author-list">
           {authors.map((author) => <span>{author}</span>)}
         </div>
         <div class="citation">
-          <pre><code>{`@misc{dong2025havlnbenchmarkhumanawarenavigation,
-  title={HA-VLN: A Benchmark for Human-Aware Navigation in Discrete-Continuous Environments with Dynamic Multi-Human Interactions, Real-World Validation, and an Open Leaderboard},
-  author={Yifei Dong and Fengyi Wu and Qi He and Heng Li and Minghan Li and Zebang Cheng and Yuxuan Zhou and Jingdong Sun and Qi Dai and Alexander G Hauptmann and Bohan Xiong and Yetong Sha and Lingdong Kong and Zhi-Qi Cheng},
+          <pre><code>{`@misc{dong2025havln20openbenchmark,
+  title={HA-VLN 2.0: An Open Benchmark and Leaderboard for Human-Aware Navigation in Discrete and Continuous Environments with Dynamic Multi-Human Interactions},
+  author={Yifei Dong and Fengyi Wu and Qi He and Zhi-Qi Cheng and Heng Li and Minghan Li and Zebang Cheng and Yuxuan Zhou and Jingdong Sun and Qi Dai and Alexander G Hauptmann},
   year={2025},
   eprint={2503.14229},
   archivePrefix={arXiv},
   primaryClass={cs.AI},
-  url={https://arxiv.org/abs/2503.14229}
+  url={https://arxiv.org/abs/2503.14229},
 }`}</code></pre>
         </div>
       </div>
@@ -508,19 +523,19 @@ const authors = [
   }
 
   h1 {
-    font-size: clamp(64px, 9vw, 132px);
+    font-size: clamp(51px, 7.2vw, 106px);
     line-height: 0.92;
     font-weight: 800;
   }
 
   h2 {
-    font-size: clamp(32px, 4.5vw, 58px);
+    font-size: clamp(26px, 3.6vw, 46px);
     line-height: 1.02;
     font-weight: 800;
   }
 
   h3 {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.25;
     font-weight: 750;
   }
@@ -531,7 +546,7 @@ const authors = [
     margin-left: auto;
     margin-right: auto;
     color: var(--muted);
-    font-size: clamp(20px, 2.2vw, 28px);
+    font-size: clamp(16px, 1.75vw, 22px);
     line-height: 1.38;
   }
 
@@ -622,6 +637,34 @@ const authors = [
 
   .section {
     padding: 96px 6vw;
+  }
+
+  .demo-hub {
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 52%, #f8fafc 100%);
+  }
+
+  .demo-subheading {
+    margin-top: 64px;
+  }
+
+  .explorer-panel {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .explorer-panel :global(.video-tree-dropdown) {
+    margin-top: 0;
+  }
+
+  .explorer-panel :global(.bg-white.rounded-lg.shadow-lg) {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+  }
+
+  .explorer-panel :global(h3) {
+    color: var(--text);
+    font-size: 20px;
   }
 
   .section-white {
@@ -859,6 +902,22 @@ const authors = [
     gap: 24px;
     max-width: 1180px;
     margin: 0 auto;
+  }
+
+  .institution-panel {
+    max-width: 1180px;
+    margin: 0 auto 24px;
+    padding: 28px 34px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+  }
+
+  .institution-panel img {
+    width: min(100%, 1006px);
+    margin: 0 auto;
+    image-rendering: auto;
   }
 
   .author-list,
