@@ -11,8 +11,8 @@ import nusLogo from "../assets/institutions/nus.png";
 import galbotLogo from "../assets/institutions/galbot.png";
 import cmuLogo from "../assets/institutions/carnegie-mellon.png";
 import microsoftLogo from "../assets/institutions/microsoft.svg";
-import heroVideo from "../assets/8194nk5LbLH_all_ids_video.mp4";
-import sceneDiversityVideo from "../assets/havln.mp4";
+import heroVideo from "../assets/havln.mp4";
+import sceneDiversityVideo from "../assets/8194nk5LbLH_all_ids_video.mp4";
 import navVisualA from "../assets/nav_visual2.mp4";
 import navVisualB from "../assets/without_collision_1.mp4";
 import demo1 from "../assets/demo_1.mp4";
@@ -166,7 +166,7 @@ const authors = [
           <source src={heroVideo} type="video/mp4" />
         </video>
         <div class="media-caption">
-          Dynamic humans are part of the navigation scene, not a background detail.
+          We present several annotated instances of human subjects from the proposed HAPS 2.0 Dataset (overall and single), showcasing a variety of well-aligned motions, movements, and interactions.
         </div>
       </div>
     </section>
@@ -545,19 +545,19 @@ const authors = [
   }
 
   h1 {
-    font-size: clamp(51px, 7.2vw, 106px);
+    font-size: clamp(38px, 5.4vw, 80px);
     line-height: 0.92;
     font-weight: 800;
   }
 
   h2 {
-    font-size: clamp(26px, 3.6vw, 46px);
+    font-size: clamp(23px, 3.24vw, 41px);
     line-height: 1.02;
     font-weight: 800;
   }
 
   h3 {
-    font-size: 18px;
+    font-size: 16.2px;
     line-height: 1.25;
     font-weight: 750;
   }
@@ -642,9 +642,10 @@ const authors = [
   }
 
   .hero-media video {
+    display: block;
     width: 100%;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
+    aspect-ratio: 96 / 47;
+    object-fit: contain;
     background: #0f172a;
   }
 
@@ -692,7 +693,7 @@ const authors = [
 
   .explorer-panel :global(h3) {
     color: var(--text);
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .section-white {
@@ -878,10 +879,11 @@ const authors = [
   }
 
   .showcase-video video {
+    display: block;
     width: 100%;
-    height: 100%;
-    min-height: 360px;
-    object-fit: cover;
+    height: auto;
+    aspect-ratio: 256 / 135;
+    object-fit: contain;
     background: #0f172a;
   }
 
@@ -1138,10 +1140,6 @@ const authors = [
 
     .institution-logo img {
       max-height: 54px;
-    }
-
-    .showcase-video video {
-      min-height: 240px;
     }
 
     .footer {
