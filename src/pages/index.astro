@@ -6,10 +6,10 @@ import VideoTreeDropdown from "../components/VideoTreeDropdown.astro";
 import sceneFigure from "../assets/task_define_final/task_define_final-1.png";
 import simulatorFigure from "../assets/simulator_draft_v2/simulator_draft_v2-1.png";
 import overviewFigure from "../assets/overview_example-1.png";
-import uwLogo from "../assets/institutions/university-of-washington.svg";
-import nusLogo from "../assets/institutions/nus.svg";
+import uwLogo from "../assets/institutions/university-of-washington.png";
+import nusLogo from "../assets/institutions/nus.png";
 import galbotLogo from "../assets/institutions/galbot.png";
-import cmuLogo from "../assets/institutions/carnegie-mellon.svg";
+import cmuLogo from "../assets/institutions/carnegie-mellon.png";
 import microsoftLogo from "../assets/institutions/microsoft.svg";
 import heroVideo from "../assets/8194nk5LbLH_all_ids_video.mp4";
 import sceneDiversityVideo from "../assets/havln.mp4";
@@ -235,7 +235,7 @@ const authors = [
         </p>
       </div>
 
-      <div class="media-grid two">
+      <div class="media-grid two trajectory-grid">
         <figure class="media-panel">
           <video autoplay muted loop playsinline controls preload="metadata">
             <source src={navVisualA} type="video/mp4" />
@@ -386,9 +386,8 @@ const authors = [
       <div class="institution-panel" aria-label="Collaborating institutions">
         {
           institutions.map((institution) => (
-            <div class="institution-card">
+            <div class="institution-logo">
               <img src={institution.logo.src} alt={`${institution.name} logo`} />
-              <span>{institution.name}</span>
             </div>
           ))
         }
@@ -817,6 +816,10 @@ const authors = [
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .trajectory-grid {
+    max-width: 1500px;
+  }
+
   .environment-stack {
     display: grid;
     gap: 26px;
@@ -825,7 +828,7 @@ const authors = [
   }
 
   .overview-panel {
-    max-width: 980px;
+    max-width: 1180px;
     justify-self: center;
   }
 
@@ -841,6 +844,12 @@ const authors = [
     aspect-ratio: 16 / 10;
     object-fit: cover;
     background: #0f172a;
+  }
+
+  .trajectory-grid .media-panel video {
+    aspect-ratio: 25 / 7;
+    object-fit: contain;
+    background: #020617;
   }
 
   .note-row {
@@ -948,38 +957,28 @@ const authors = [
 
   .institution-panel {
     max-width: 1180px;
-    margin: 0 auto 24px;
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 14px;
-  }
-
-  .institution-card {
-    min-height: 140px;
-    display: grid;
-    grid-template-rows: 1fr auto;
+    margin: 0 auto 34px;
+    display: flex;
     align-items: center;
-    justify-items: center;
-    gap: 14px;
-    padding: 22px 16px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.06);
+    justify-content: space-between;
+    gap: clamp(24px, 4vw, 56px);
+    padding: 26px 8px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
   }
 
-  .institution-card img {
+  .institution-logo {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .institution-logo img {
     max-width: 100%;
-    max-height: 54px;
+    max-height: 66px;
     object-fit: contain;
-  }
-
-  .institution-card span {
-    color: var(--muted);
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1.35;
-    text-align: center;
   }
 
   .author-list,
@@ -1070,9 +1069,17 @@ const authors = [
     }
 
     .feature-grid,
-    .resource-grid,
-    .institution-panel {
+    .resource-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .institution-panel {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .institution-logo {
+      flex: 0 1 28%;
     }
   }
 
@@ -1113,9 +1120,24 @@ const authors = [
     .stats-grid,
     .media-grid.two,
     .gallery-grid,
-    .resource-grid,
-    .institution-panel {
+    .resource-grid {
       grid-template-columns: 1fr;
+    }
+
+    .trajectory-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .institution-panel {
+      gap: 22px;
+    }
+
+    .institution-logo {
+      flex-basis: 42%;
+    }
+
+    .institution-logo img {
+      max-height: 54px;
     }
 
     .showcase-video video {
