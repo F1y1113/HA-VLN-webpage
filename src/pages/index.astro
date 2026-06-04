@@ -6,7 +6,11 @@ import VideoTreeDropdown from "../components/VideoTreeDropdown.astro";
 import sceneFigure from "../assets/task_define_final/task_define_final-1.png";
 import simulatorFigure from "../assets/simulator_draft_v2/simulator_draft_v2-1.png";
 import overviewFigure from "../assets/overview_example-1.png";
-import institutionFigure from "../assets/our_institutions.png";
+import uwLogo from "../assets/institutions/university-of-washington.svg";
+import nusLogo from "../assets/institutions/nus.svg";
+import galbotLogo from "../assets/institutions/galbot.png";
+import cmuLogo from "../assets/institutions/carnegie-mellon.svg";
+import microsoftLogo from "../assets/institutions/microsoft.svg";
 import heroVideo from "../assets/8194nk5LbLH_all_ids_video.mp4";
 import sceneDiversityVideo from "../assets/havln.mp4";
 import navVisualA from "../assets/nav_visual2.mp4";
@@ -18,8 +22,9 @@ import demo4 from "../assets/demo_4.mp4";
 import demo5 from "../assets/demo_5.mp4";
 import demo6 from "../assets/demo_6.mp4";
 
-const DOCS_URL = "https://josephjostar0.github.io/havln_docs/";
-const DATA_URL = `${DOCS_URL}quick_start/data/`;
+const DOCS_HOME_URL = "https://josephjostar0.github.io/havln_docs/";
+const DOCS_URL = `${DOCS_HOME_URL}participant/install_and_data/`;
+const DATA_URL = `${DOCS_HOME_URL}quick_start/data/`;
 const PAPER_URL = "https://arxiv.org/pdf/2503.14229";
 const ARXIV_URL = "https://arxiv.org/abs/2503.14229";
 const REPO_URL = "https://github.com/F1y1113/HA-VLN";
@@ -77,8 +82,16 @@ const gallery = [
   { src: demo2, title: "Indoor walking", text: "Human motion inside a room provides activity and route context for grounded instructions." },
   { src: demo3, title: "Phone pacing", text: "A person walks through the hallway while using a phone, creating a moving social cue." },
   { src: demo4, title: "Running and stopping", text: "Fast motion followed by a stop makes timing and clearance important for navigation." },
-  { src: demo5, title: "Outdoor crouching", text: "A backyard motion sequence shifts from crouching to walking in a weak outdoor scene." },
+  { src: demo5, title: "Backyard crouching", text: "A backyard motion sequence shifts from crouching to walking while the surrounding scene remains visible." },
   { src: demo6, title: "Indoor crouching", text: "The person bends down while moving indoors, varying height, posture, and visibility." },
+];
+
+const institutions = [
+  { name: "University of Washington", logo: uwLogo },
+  { name: "National University of Singapore", logo: nusLogo },
+  { name: "Galbot", logo: galbotLogo },
+  { name: "Carnegie Mellon University", logo: cmuLogo },
+  { name: "Microsoft Research", logo: microsoftLogo },
 ];
 
 const authors = [
@@ -92,6 +105,9 @@ const authors = [
   "Jingdong Sun",
   "Qi Dai",
   "Alexander G. Hauptmann",
+  "Bohan Xiong",
+  "Yetong Sha",
+  "Lingdong Kong",
   "Zhi-Qi Cheng",
 ];
 ---
@@ -210,7 +226,7 @@ const authors = [
         }
       </div>
 
-      <div class="section-heading demo-subheading compact">
+      <div class="section-heading demo-subheading compact trajectory-heading">
         <p class="eyebrow">Navigation visualization</p>
         <h2>Socially aware behavior is visible in the trajectory.</h2>
         <p>
@@ -225,7 +241,7 @@ const authors = [
             <source src={navVisualA} type="video/mp4" />
           </video>
           <figcaption>
-            Lounge scenario with people talking, relaxing, and gathering near the agent path.
+            <strong>Navigation Instruction:</strong> Start by moving forward in the lounge area, where an individual is engaged in a phone conversation while pacing back and forth. Navigate carefully to avoid crossing their path. As you proceed, you will pass by a television mounted on the wall. Continue your movement, observing people relaxing and watching the TV, some seated comfortably on sofas. Further along, notice a group of friends raising their glasses in a toast, enjoying cocktails together. Maintain a steady course, ensuring you do not disrupt their gathering. Finally, reach the end of your path where a potted plant is situated next to a door. Stop at this location, positioning yourself near the plant and door without obstructing access.
           </figcaption>
         </figure>
         <figure class="media-panel">
@@ -233,7 +249,7 @@ const authors = [
             <source src={navVisualB} type="video/mp4" />
           </video>
           <figcaption>
-            Indoor route with activity cues such as ironing, reading, and room transitions.
+            <strong>Navigation Instruction:</strong> Exit the room and make a left turn. Proceed down the hallway where an individual is ironing clothes, carefully smoothing out wrinkles on garments. Continue walking and make another left turn. Enter the next room, which is a bedroom. Inside, someone is comfortably seated in bed, engrossed in reading a book. Move past the bed, ensuring not to disturb the reader. Turn left again to enter the bathroom. Once inside, position yourself near the sink and wait there, observing the surroundings without interfering with any activities.
           </figcaption>
         </figure>
       </div>
@@ -304,14 +320,14 @@ const authors = [
         </p>
       </div>
 
-      <div class="media-grid two">
+      <div class="environment-stack">
         <figure class="media-panel">
           <img src={simulatorFigure.src} alt="HA-VLN simulator annotation and rendering pipeline." />
           <figcaption>
             Annotation and rendering pipeline for dynamic human activities in HA-VLN environments.
           </figcaption>
         </figure>
-        <figure class="media-panel">
+        <figure class="media-panel overview-panel">
           <img src={overviewFigure.src} alt="Overview of annotated HA-VLN scenes." />
           <figcaption>
             Overview of annotated scenarios with human-populated navigation scenes.
@@ -368,7 +384,14 @@ const authors = [
       </div>
 
       <div class="institution-panel" aria-label="Collaborating institutions">
-        <img src={institutionFigure.src} alt="HA-VLN collaborating institutions." />
+        {
+          institutions.map((institution) => (
+            <div class="institution-card">
+              <img src={institution.logo.src} alt={`${institution.name} logo`} />
+              <span>{institution.name}</span>
+            </div>
+          ))
+        }
       </div>
 
       <div class="team-layout">
@@ -396,7 +419,7 @@ const authors = [
       <span>Human-aware navigation data and environments.</span>
     </div>
     <div class="footer-links">
-      <a href={DOCS_URL} target="_blank" rel="noopener">Docs</a>
+      <a href={DOCS_HOME_URL} target="_blank" rel="noopener">Docs</a>
       <a href={PAPER_URL} target="_blank" rel="noopener">Paper</a>
       <a href={REPO_URL} target="_blank" rel="noopener">Repo</a>
     </div>
@@ -647,6 +670,12 @@ const authors = [
     margin-top: 64px;
   }
 
+  .trajectory-heading {
+    margin-top: 86px;
+    padding-top: 36px;
+    border-top: 1px solid var(--line);
+  }
+
   .explorer-panel {
     max-width: 1180px;
     margin: 0 auto;
@@ -788,15 +817,28 @@ const authors = [
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .media-panel img,
-  .media-panel video {
+  .environment-stack {
+    display: grid;
+    gap: 26px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .overview-panel {
+    max-width: 980px;
+    justify-self: center;
+  }
+
+  .media-panel img {
     width: 100%;
-    aspect-ratio: 16 / 10;
+    height: auto;
     object-fit: contain;
-    background: #f8fafc;
+    background: #fff;
   }
 
   .media-panel video {
+    width: 100%;
+    aspect-ratio: 16 / 10;
     object-fit: cover;
     background: #0f172a;
   }
@@ -907,17 +949,37 @@ const authors = [
   .institution-panel {
     max-width: 1180px;
     margin: 0 auto 24px;
-    padding: 28px 34px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .institution-card {
+    min-height: 140px;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    align-items: center;
+    justify-items: center;
+    gap: 14px;
+    padding: 22px 16px;
     border: 1px solid var(--line);
     border-radius: 8px;
     background: #fff;
-    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.06);
   }
 
-  .institution-panel img {
-    width: min(100%, 1006px);
-    margin: 0 auto;
-    image-rendering: auto;
+  .institution-card img {
+    max-width: 100%;
+    max-height: 54px;
+    object-fit: contain;
+  }
+
+  .institution-card span {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: center;
   }
 
   .author-list,
@@ -1008,7 +1070,8 @@ const authors = [
     }
 
     .feature-grid,
-    .resource-grid {
+    .resource-grid,
+    .institution-panel {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
@@ -1050,7 +1113,8 @@ const authors = [
     .stats-grid,
     .media-grid.two,
     .gallery-grid,
-    .resource-grid {
+    .resource-grid,
+    .institution-panel {
       grid-template-columns: 1fr;
     }
 
